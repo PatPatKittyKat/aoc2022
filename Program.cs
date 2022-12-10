@@ -12,6 +12,7 @@ namespace aoc2022
             //Your code goes here
             Console.WriteLine("Attempting Advent of Code for fun :)");
             Console.WriteLine("testing commit");
+            Console.WriteLine("testing after addl setup");
         }
     }
 }
