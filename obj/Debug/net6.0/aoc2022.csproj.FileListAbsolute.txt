@@ -1,0 +1,15 @@
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\bin\Debug\net6.0\aoc2022.exe
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\bin\Debug\net6.0\aoc2022.deps.json
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\bin\Debug\net6.0\aoc2022.runtimeconfig.json
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\bin\Debug\net6.0\aoc2022.dll
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\bin\Debug\net6.0\aoc2022.pdb
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\aoc2022.csproj.AssemblyReference.cache
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\aoc2022.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\aoc2022.AssemblyInfoInputs.cache
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\aoc2022.AssemblyInfo.cs
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\aoc2022.csproj.CoreCompileInputs.cache
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\aoc2022.dll
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\refint\aoc2022.dll
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\aoc2022.pdb
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\aoc2022.genruntimeconfig.cache
+C:\Users\Anthony\OneDrive\Documents\VSCode\aoc2022\obj\Debug\net6.0\ref\aoc2022.dll
