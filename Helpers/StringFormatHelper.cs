@@ -27,9 +27,6 @@ namespace aoc2022
             return problemName;
         }
 
-        private static string ProblemStringFormatHelper(int day, string name)
-        {
-            return string.Concat("Day ", day, ": ", name);
-        }
+        private static string ProblemStringFormatHelper(int day, string name) => string.Concat("Day ", day, ": ", name);
     }
 }

@@ -6,6 +6,9 @@ using System.IO;
 
 namespace aoc2022
 {
+    //TODO: could use a more intuitive way to indicate part2. Currently need to just call CalorieCounting(true)
+    //TODO: put the filestream logic in a separate centralized helper so it's not reused in every solution.
+    //TODO: update readme with problem approaches.
     public class ProblemSolver
     {
         const string separator = " | ";
@@ -31,7 +34,8 @@ namespace aoc2022
                     result = CalorieCounting();
                     break;
                 case 2:
-                    result = RPS();
+                    //result = RPS(); // my brute force solution
+                    result = RPS2();  // my LinkedList solution
                     break;
                 default:
                     result = "??";
@@ -41,8 +45,6 @@ namespace aoc2022
             return problemInfo + separator + "Answer: " + result;
         }
         
-        //TODO: could use a more intuitive way to indicate part2. Currently need to just call CalorieCounting(true)
-        //TODO: put the filestream logic in a separate centralized helper so it's not reused in every solution.
         //Day 1: https://adventofcode.com/2022/day/1
         public static string CalorieCounting(bool part2 = false)
         {
@@ -129,7 +131,6 @@ namespace aoc2022
                 }
             }
 
-
             if (!part2)
             {
                 // Calculating score.
@@ -208,6 +209,156 @@ namespace aoc2022
                 return total.ToString();
             }
             
+        }
+
+        public static string RPS2(bool part2 = false)
+        {
+            // filestream setup
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem2.txt";
+            List<string[]> inputList = new List<string[]>();
+
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                byte[] b = new byte[16384];
+                int readLen;
+
+                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
+                {
+                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
+                    using (StringReader reader = new StringReader(bufferString))
+                    {
+                        string? line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            inputList.Add(line.Split(' '));
+                        }
+                    }
+                }
+            }
+
+            // LinkedList setup
+            LinkedList<string> ll = new LinkedList<string>(new [] {"R", "S", "P"});
+
+
+            if (!part2)
+            {
+                int total = 0;
+                foreach (string[] arr in inputList)
+                {
+                    string myHand = arr[1];
+                    string elfHand = arr[0];
+
+                    // Convert given hands to RPS and add totals for myHand value.
+                    RPS2Helper(ref myHand, ref total);
+                    RPS2Helper(ref elfHand, ref total);
+
+                    LinkedListNode<string> myHandNode = ll.Find(myHand);
+                    
+                    // win
+                    if (myHandNode.NextOrFirst().Value == elfHand)
+                    {
+                        total += 6;
+                    }
+                    // draw
+                    if (myHandNode.Value == elfHand)
+                    {
+                        total += 3;
+                    }
+                    // loss
+                    if (myHandNode.PreviousOrLast().Value == elfHand)
+                    {
+                        total += 0;
+                    }
+                }
+
+                return total.ToString();
+            }
+            else
+            {
+                int total = 0;
+                foreach (string[] arr in inputList)
+                {
+                    string myHand = arr[1]; //now indicates loss instead of XYZ->RPS
+                    string elfHand = arr[0];
+
+                    // Convert given hands to RPS and add totals for myHand value.
+                    //RPS2Helper(ref myHand, ref total);
+                    RPS2Helper(ref elfHand, ref total);
+
+                    LinkedListNode<string> elfHandNode = ll.Find(elfHand);
+                    
+                    //lose
+                    if (myHand == "X")
+                    {
+                        myHand = elfHandNode.NextOrFirst().Value;
+                        total += 0;
+                    }
+                    //draw
+                    else if (myHand == "Y")
+                    {
+                        myHand = elfHandNode.Value;
+                        total += 3;
+                    }
+                    //win
+                    else if (myHand == "Z")
+                    {
+                        myHand = elfHandNode.PreviousOrLast().Value;
+                        total += 6;
+                    }
+
+                    // add point values for selection.
+                    if (myHand == "R")
+                    {
+                        total += 1;
+                    }
+                    if (myHand == "P")
+                    {
+                        total += 2;
+                    }
+                    if (myHand == "S")
+                    {
+                        total += 3;
+                    }
+                }
+
+                return total.ToString();
+            }
+            
+        }
+
+        //Convert hands from (ABC or XYZ) to RPS
+        private static void RPS2Helper(ref string hand, ref int total)
+        {
+            // get myHand and convert XYZ to RPS for win-check
+            if (hand == "X") 
+            {
+                hand = "R";
+                total += 1;
+            }
+            else if (hand == "Y") 
+            {
+                hand = "P";
+                total += 2;
+            }
+            else if (hand == "Z") 
+            {
+                hand = "S";
+                total += 3;
+            }
+
+            // get elfHand and convert ABC to RPS for win-check
+            if (hand == "A") 
+            {
+                hand = "R";
+            }
+            else if (hand == "B") 
+            {
+                hand = "P";
+            }
+            else if (hand == "C") 
+            {
+                hand = "S";
+            }
         }
 
     }
