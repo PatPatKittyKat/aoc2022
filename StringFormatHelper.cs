@@ -6,7 +6,7 @@ using System.IO;
 
 namespace aoc2022
 {
-    public class ProgramHelper
+    public class StringFormatHelper
     {
         public static string BuildProblemMessage(int problem)
         {
@@ -20,7 +20,7 @@ namespace aoc2022
                     problemName = ProblemStringFormatHelper(problem, "Rock Paper Scissors");
                     break;
                 default:
-                    problemName = "Could not find problem name";
+                    problemName = ProblemStringFormatHelper(0, "Could not find problem name");
                     break;
             };
 
