@@ -7,8 +7,6 @@ using System.IO;
 namespace aoc2022
 {
     //TODO: could use a more intuitive way to indicate part2. Currently need to just call CalorieCounting(true)
-    //TODO: put the filestream logic in a separate centralized helper so it's not reused in every solution.
-    //TODO: update readme with problem approaches.
     public class ProblemSolver
     {
         const string separator = " | ";
@@ -49,41 +47,7 @@ namespace aoc2022
         public static string CalorieCounting(bool part2 = false)
         {
             string filePath = Environment.CurrentDirectory + @"\inputs\problem1.txt";
-            Dictionary<int,int> elfCollection = new Dictionary<int, int>(); //<id, sum>
-            int key = 0;
-
-            using (FileStream fs = File.OpenRead(filePath))
-            {
-                byte[] b = new byte[16384];
-                int readLen;
-
-                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
-                {
-                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
-                    using (StringReader reader = new StringReader(bufferString))
-                    {
-                        string? line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            if (!string.IsNullOrEmpty(line))
-                            {
-                                if (!elfCollection.TryGetValue(key, out int value))
-                                {
-                                    elfCollection.Add(key, Convert.ToInt32(line));
-                                }
-                                else
-                                {
-                                    elfCollection[key] += Convert.ToInt32(line);
-                                }
-                            }
-                            else
-                            {
-                                key++;
-                            }
-                        }
-                    }
-                }
-            }
+            Dictionary<int,int> elfCollection = FileStreamHelper.ReadFileIntoDictionary(filePath);
 
             if (!part2)
             {
@@ -110,26 +74,7 @@ namespace aoc2022
             // C Z (draw, gain 3 for scissors + 3 for draw = 6)
 
             string filePath = Environment.CurrentDirectory + @"\inputs\problem2.txt";
-            List<string[]> inputList = new List<string[]>();
-
-            using (FileStream fs = File.OpenRead(filePath))
-            {
-                byte[] b = new byte[16384];
-                int readLen;
-
-                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
-                {
-                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
-                    using (StringReader reader = new StringReader(bufferString))
-                    {
-                        string? line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            inputList.Add(line.Split(' '));
-                        }
-                    }
-                }
-            }
+            List<string[]> inputList = FileStreamHelper.ReadFileIntoStringArrayList(filePath);
 
             if (!part2)
             {
@@ -215,30 +160,10 @@ namespace aoc2022
         {
             // filestream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem2.txt";
-            List<string[]> inputList = new List<string[]>();
-
-            using (FileStream fs = File.OpenRead(filePath))
-            {
-                byte[] b = new byte[16384];
-                int readLen;
-
-                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
-                {
-                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
-                    using (StringReader reader = new StringReader(bufferString))
-                    {
-                        string? line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            inputList.Add(line.Split(' '));
-                        }
-                    }
-                }
-            }
+            List<string[]> inputList = FileStreamHelper.ReadFileIntoStringArrayList(filePath);
 
             // LinkedList setup
             LinkedList<string> ll = new LinkedList<string>(new [] {"R", "S", "P"});
-
 
             if (!part2)
             {
