@@ -9,7 +9,8 @@ The approach here was to simply read the inputs one line at a time, adding each 
 ## Day 2: Rock Paper Scissors
 For this one, the initial approach was just a brute force answer: writing out a bunch of if-statements for every scenario. It got the correct answers, but the result didn't look very readable, so I brainstormed a slightly different approach using a Circular Linked List. 
 
-![rpsLL](images\rpsLL.png)
+[//]: # "original img can be found in \images\rpsLL.png -- ![rpsLL](images\rpsLL.png)"
+![rpsLL](https://user-images.githubusercontent.com/22353608/207114173-48d151b4-b3a2-4edd-950b-de25ba550ca2.png)
 
 From the above, we can check win/loss based on position in the linked list, where:
 - `currentNode` is the selected hand
