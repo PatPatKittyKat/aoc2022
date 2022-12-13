@@ -7,9 +7,11 @@ using System.IO;
 namespace aoc2022
 {
     //TODO: could use a more intuitive way to indicate part2. Currently need to just call CalorieCounting(true)
+    //TODO: there's certainly a better way to organize FileStreamHelper
     public class ProblemSolver
     {
         const string separator = " | ";
+        const string part2 = "Part2: ";
 
         public static List<string> SolveMultiple(List<int> problems)
         {
@@ -30,10 +32,16 @@ namespace aoc2022
             {
                 case 1:
                     result = CalorieCounting();
+                    result += separator + part2 + CalorieCounting(true);
                     break;
                 case 2:
                     //result = RPS(); // my brute force solution
                     result = RPS2();  // my LinkedList solution
+                    result += separator + part2 + RPS2(true);
+                    break;
+                case 3:
+                    result = RucksackReorg();
+                    result += separator + part2 + RucksackReorg(true);
                     break;
                 default:
                     result = "??";
@@ -46,6 +54,7 @@ namespace aoc2022
         //Day 1: https://adventofcode.com/2022/day/1
         public static string CalorieCounting(bool part2 = false)
         {
+            // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem1.txt";
             Dictionary<int,int> elfCollection = FileStreamHelper.ReadFileIntoDictionary(filePath);
 
@@ -67,12 +76,7 @@ namespace aoc2022
         //Day 2: https://adventofcode.com/2022/day/2
         public static string RPS(bool part2 = false)
         {
-            //col1: A(rock),B(paper),C(scissors)
-            //col2: X(rock),Y(paper),Z(scissors)
-            // A Y (win, gain 2 for paper + 6 for win = 8)
-            // B X (lose, gain 1 for rock + 0 for loss = 1)
-            // C Z (draw, gain 3 for scissors + 3 for draw = 6)
-
+            // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem2.txt";
             List<string[]> inputList = FileStreamHelper.ReadFileIntoStringArrayList(filePath);
 
@@ -158,7 +162,7 @@ namespace aoc2022
 
         public static string RPS2(bool part2 = false)
         {
-            // filestream setup
+            // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem2.txt";
             List<string[]> inputList = FileStreamHelper.ReadFileIntoStringArrayList(filePath);
 
@@ -283,6 +287,25 @@ namespace aoc2022
             else if (hand == "C") 
             {
                 hand = "S";
+            }
+        }
+
+        public static string RucksackReorg(bool part2 = false)
+        {
+            // filestream setup
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem3.txt";
+
+            if (!part2)
+            {
+                List<int> inputList = FileStreamHelper.ReadFileProblem3(filePath);
+                int sum = inputList.Sum();
+                return sum.ToString();
+            }
+            else
+            {
+                List<int> inputList = FileStreamHelper.ReadFileProblem3Part2(filePath);
+                int sum = inputList.Sum();
+                return sum.ToString();
             }
         }
 

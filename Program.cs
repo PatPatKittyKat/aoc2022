@@ -10,9 +10,9 @@ namespace aoc2022
     {
         public static void Main(string[] args)
         {
-            //List of all problems (25) can be found here: https://adventofcode.com/2022
+            // List of all problems (25) can be found here: https://adventofcode.com/2022
             List<int> problems = new List<int>
-                {1,2};
+                {1,2,3};
 
             // Problem Solver
             List<string> answers = ProblemSolver.SolveMultiple(problems);
@@ -23,9 +23,6 @@ namespace aoc2022
                 Console.WriteLine(s);
             }
 
-            // temp solve part2
-            Console.WriteLine(ProblemSolver.RPS2(false));
-            Console.WriteLine(ProblemSolver.RPS2(true));
         }
     }
 }

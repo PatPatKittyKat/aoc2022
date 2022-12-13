@@ -19,6 +19,9 @@ namespace aoc2022
                 case 2:
                     problemName = ProblemStringFormatHelper(problem, "Rock Paper Scissors");
                     break;
+                case 3:
+                    problemName = ProblemStringFormatHelper(problem, "Rucksack Reorganization");
+                    break;
                 default:
                     problemName = ProblemStringFormatHelper(0, "Could not find problem name");
                     break;
