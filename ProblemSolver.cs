@@ -6,8 +6,6 @@ using System.IO;
 
 namespace aoc2022
 {
-    //TODO: could use a more intuitive way to indicate part2. Currently need to just call CalorieCounting(true)
-    //TODO: there's certainly a better way to organize FileStreamHelper
     public class ProblemSolver
     {
         const string separator = " | ";
@@ -51,77 +49,35 @@ namespace aoc2022
             return problemInfo + separator + "Answer: " + result;
         }
         
-        //Day 1: https://adventofcode.com/2022/day/1
+        // Day 1: https://adventofcode.com/2022/day/1
         public static string CalorieCounting(bool part2 = false)
         {
             // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem1.txt";
-            Dictionary<int,int> elfCollection = FileStreamHelper.ReadFileIntoDictionary(filePath);
+            Dictionary<int,int> elfCollection = FileStreamHelper.CalorieCounting(filePath);
 
-            if (!part2)
+            if (part2)
             {
-                // base question: elf carrying most calories
-                int answer = elfCollection.OrderByDescending(x => x.Value).FirstOrDefault().Value;
-                return Convert.ToString(answer);
-            }
-            else
-            {
-                // part 2: get top 3 instead
-                //var collection = elfCollection.OrderByDescending(x => x.Value).Take(3).ToDictionary(x => x.Key, y => y.Value);
                 int answer2 = elfCollection.OrderByDescending(x => x.Value).Take(3).Sum(x => x.Value);
                 return Convert.ToString(answer2);
             }
+
+            // part 1
+            int answer = elfCollection.OrderByDescending(x => x.Value).FirstOrDefault().Value;
+            return Convert.ToString(answer);
         }
 
-        //Day 2: https://adventofcode.com/2022/day/2
+        // Day 2: https://adventofcode.com/2022/day/2
+        // THIS METHOD IS OBSOLETE. It's a brute force attempt that I refactored the next day. See RPS2()
         public static string RPS(bool part2 = false)
         {
             // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem2.txt";
-            List<string[]> inputList = FileStreamHelper.ReadFileIntoStringArrayList(filePath);
+            List<string[]> inputList = FileStreamHelper.RPS(filePath);
+            int total = 0;
 
-            if (!part2)
+            if (part2)
             {
-                // Calculating score.
-                int total = 0;
-                foreach (string[] arr in inputList)
-                {
-                    //get hands
-                    string myHand = arr[1];
-                    string elfHand = arr[0];
-
-                    if (myHand == "X") total += 1;
-                    if (myHand == "Y") total += 2;
-                    if (myHand == "Z") total += 3;
-
-                    //win/loss/draw?
-                    if (elfHand == "A")
-                    {
-                        if (myHand == "X") total += 3;
-                        if (myHand == "Y") total += 6;
-                        if (myHand == "Z") total += 0;
-                    }
-                    if (elfHand == "B")
-                    {
-                        if (myHand == "X") total += 0;
-                        if (myHand == "Y") total += 3;
-                        if (myHand == "Z") total += 6;
-                    }
-                    if (elfHand == "C")
-                    {
-                        if (myHand == "X") total += 6;
-                        if (myHand == "Y") total += 0;
-                        if (myHand == "Z") total += 3;
-                    }
-
-                }
-
-                return total.ToString();
-            }
-            else
-            {
-                // Calculating score.
-                int total = 0;
                 foreach (string[] arr in inputList)
                 {
                     //get hands
@@ -133,7 +89,7 @@ namespace aoc2022
                     if (myHand == "Y") total += 3;
                     if (myHand == "Z") total += 6;
 
-                    //find myHand
+                    //find what myHand needs to be
                     if (elfHand == "A")
                     {
                         if (myHand == "X") total += 3; //need to lose against rock: pick scissors (+3)
@@ -157,61 +113,61 @@ namespace aoc2022
 
                 return total.ToString();
             }
-            
+
+            // part 1
+            foreach (string[] arr in inputList)
+            {
+                //get hands
+                string myHand = arr[1];
+                string elfHand = arr[0];
+
+                if (myHand == "X") total += 1;
+                if (myHand == "Y") total += 2;
+                if (myHand == "Z") total += 3;
+
+                //win/loss/draw?
+                if (elfHand == "A")
+                {
+                    if (myHand == "X") total += 3;
+                    if (myHand == "Y") total += 6;
+                    if (myHand == "Z") total += 0;
+                }
+                if (elfHand == "B")
+                {
+                    if (myHand == "X") total += 0;
+                    if (myHand == "Y") total += 3;
+                    if (myHand == "Z") total += 6;
+                }
+                if (elfHand == "C")
+                {
+                    if (myHand == "X") total += 6;
+                    if (myHand == "Y") total += 0;
+                    if (myHand == "Z") total += 3;
+                }
+
+            }
+
+            return total.ToString();
         }
 
         public static string RPS2(bool part2 = false)
         {
             // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem2.txt";
-            List<string[]> inputList = FileStreamHelper.ReadFileIntoStringArrayList(filePath);
+            List<string[]> inputList = FileStreamHelper.RPS(filePath);
+            int total = 0;
 
             // LinkedList setup
             LinkedList<string> ll = new LinkedList<string>(new [] {"R", "S", "P"});
 
-            if (!part2)
+            if (part2)
             {
-                int total = 0;
                 foreach (string[] arr in inputList)
                 {
-                    string myHand = arr[1];
+                    string myHand = arr[1]; // now indicates win/loss/draw instead of XYZ->RPS
                     string elfHand = arr[0];
 
-                    // Convert given hands to RPS and add totals for myHand value.
-                    RPS2Helper(ref myHand, ref total);
-                    RPS2Helper(ref elfHand, ref total);
-
-                    LinkedListNode<string> myHandNode = ll.Find(myHand);
-                    
-                    // win
-                    if (myHandNode.NextOrFirst().Value == elfHand)
-                    {
-                        total += 6;
-                    }
-                    // draw
-                    if (myHandNode.Value == elfHand)
-                    {
-                        total += 3;
-                    }
-                    // loss
-                    if (myHandNode.PreviousOrLast().Value == elfHand)
-                    {
-                        total += 0;
-                    }
-                }
-
-                return total.ToString();
-            }
-            else
-            {
-                int total = 0;
-                foreach (string[] arr in inputList)
-                {
-                    string myHand = arr[1]; //now indicates loss instead of XYZ->RPS
-                    string elfHand = arr[0];
-
-                    // Convert given hands to RPS and add totals for myHand value.
-                    //RPS2Helper(ref myHand, ref total);
+                    // Convert given hands to RPS.
                     RPS2Helper(ref elfHand, ref total);
 
                     LinkedListNode<string> elfHandNode = ll.Find(elfHand);
@@ -252,7 +208,37 @@ namespace aoc2022
 
                 return total.ToString();
             }
-            
+
+            // part 1
+            foreach (string[] arr in inputList)
+            {
+                string myHand = arr[1];
+                string elfHand = arr[0];
+
+                // Convert both hands to RPS and add totals for myHand value.
+                RPS2Helper(ref myHand, ref total);
+                RPS2Helper(ref elfHand, ref total);
+
+                LinkedListNode<string> myHandNode = ll.Find(myHand);
+                
+                // win
+                if (myHandNode.NextOrFirst().Value == elfHand)
+                {
+                    total += 6;
+                }
+                // draw
+                if (myHandNode.Value == elfHand)
+                {
+                    total += 3;
+                }
+                // loss
+                if (myHandNode.PreviousOrLast().Value == elfHand)
+                {
+                    total += 0;
+                }
+            }
+
+            return total.ToString();
         }
 
         //Convert hands from (ABC or XYZ) to RPS
@@ -290,6 +276,7 @@ namespace aoc2022
             }
         }
 
+        //Day3: https://adventofcode.com/2022/day/3
         public static string RucksackReorg(bool part2 = false)
         {
             // filestream setup
@@ -297,13 +284,13 @@ namespace aoc2022
 
             if (!part2)
             {
-                List<int> inputList = FileStreamHelper.ReadFileProblem3(filePath);
+                List<int> inputList = FileStreamHelper.RucksackReorg(filePath);
                 int sum = inputList.Sum();
                 return sum.ToString();
             }
             else
             {
-                List<int> inputList = FileStreamHelper.ReadFileProblem3Part2(filePath);
+                List<int> inputList = FileStreamHelper.RucksackReorgPart2(filePath);
                 int sum = inputList.Sum();
                 return sum.ToString();
             }

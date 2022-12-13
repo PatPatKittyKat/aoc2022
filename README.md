@@ -21,5 +21,7 @@ For example, let's say your selected Hand is Scissors ("S"), and my Hand is Pape
 
 Another example, your selected Hand is "R", mine is "P". Your `currentNode.Prev.Value` is "P", so you lost that one.
 
-## Day 3: x
-d
+## Day 3: Rucksack Reorganization
+This one was solved by the following: on each line read from the filestream, split the string in half. For the first half, add all unique characters to a dictionary. For the second half, just check against the dictionary for existence. When a duplicate is found, calculate its value and add to a running total, then reset the dictionary.
+
+The part 2 solution is similar, but with a twist. For each new group, we are looking at 3 lines from the filestream, not just 1 line. Like part 1, we only care about unique characters. So, every time we encounter a duplicated character on different lines in the group, we add to the `dict.Value`, which stores the frequency it appears (max 3 = adds +1 if char appears once or more per line). From the problem definition, we are guaranteed to only have one answer per group, so we can just calculate its value and add to a running total. Then reset the dictionary to reuse for the next group.
