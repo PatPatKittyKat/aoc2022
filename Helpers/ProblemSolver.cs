@@ -6,7 +6,7 @@ using System.IO;
 
 namespace aoc2022
 {
-    public static class FileStreamHelper
+    public static class ProblemSolver
     {
         const int FILE_BUFFER_SIZE = 16384; // 2^14
 
@@ -184,6 +184,62 @@ namespace aoc2022
             }
 
             return resultList;
+        }
+
+        public static string CampCleanup(string filePath, bool part2 = false)
+        {
+            int pairCount = 0;
+
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                byte[] b = new byte[FILE_BUFFER_SIZE];
+                int readLen;
+
+                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
+                {
+                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
+                    using (StringReader reader = new StringReader(bufferString))
+                    {
+                        string? line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            int separatorIndex = line.IndexOf(',');
+                            string[] s1 = line.Substring(0, separatorIndex).Split('-');
+                            string[] s2 = line.Substring(separatorIndex+1, line.Length-separatorIndex-1).Split('-');
+                            
+                            // Get lower and upper bounds of given ranges for each group
+                            Tuple<int, int> assignment1 = new Tuple<int, int>(Convert.ToInt32(s1[0]),Convert.ToInt32(s1[1])); // [lower1, upper1]
+                            Tuple<int, int> assignment2 = new Tuple<int, int>(Convert.ToInt32(s2[0]),Convert.ToInt32(s2[1])); // [lower2, upper2]
+
+
+                            if (part2)
+                            {
+                                // Check for *any* overlapping
+                                if (assignment1.Item2 == assignment2.Item1 
+                                    || assignment1.Item1 == assignment2.Item2
+                                    || (assignment1.Item2 >= assignment2.Item1 && assignment1.Item1 <= assignment2.Item1)
+                                    || (assignment2.Item2 >= assignment1.Item1 && assignment2.Item1 <= assignment1.Item1))
+                                {
+                                    pairCount++;
+                                }
+                            }
+                            else
+                            {
+                                // Check if one range is contained in the other
+                                if ((assignment1.Item1 <= assignment2.Item1 && assignment1.Item2 >= assignment2.Item2) ||
+                                    (assignment1.Item1 >= assignment2.Item1 && assignment1.Item2 <= assignment2.Item2))
+                                {
+                                    pairCount++;
+                                }
+                            }
+                            
+
+                        }
+                    }
+                }
+            }
+
+            return pairCount.ToString();
         }
     }
 }

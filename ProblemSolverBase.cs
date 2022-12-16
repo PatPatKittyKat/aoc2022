@@ -6,7 +6,7 @@ using System.IO;
 
 namespace aoc2022
 {
-    public class ProblemSolver
+    public class ProblemSolverBase
     {
         const string separator = " | ";
         const string part2 = "Part2: ";
@@ -41,6 +41,10 @@ namespace aoc2022
                     result = RucksackReorg();
                     result += separator + part2 + RucksackReorg(true);
                     break;
+                case 4:
+                    result = CampCleanup();
+                    result += separator + part2 + CampCleanup(true);
+                    break;
                 default:
                     result = "??";
                     break;
@@ -54,7 +58,7 @@ namespace aoc2022
         {
             // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem1.txt";
-            Dictionary<int,int> elfCollection = FileStreamHelper.CalorieCounting(filePath);
+            Dictionary<int,int> elfCollection = ProblemSolver.CalorieCounting(filePath);
 
             if (part2)
             {
@@ -73,7 +77,7 @@ namespace aoc2022
         {
             // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem2.txt";
-            List<string[]> inputList = FileStreamHelper.RPS(filePath);
+            List<string[]> inputList = ProblemSolver.RPS(filePath);
             int total = 0;
 
             if (part2)
@@ -154,7 +158,7 @@ namespace aoc2022
         {
             // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem2.txt";
-            List<string[]> inputList = FileStreamHelper.RPS(filePath);
+            List<string[]> inputList = ProblemSolver.RPS(filePath);
             int total = 0;
 
             // LinkedList setup
@@ -276,25 +280,40 @@ namespace aoc2022
             }
         }
 
-        //Day3: https://adventofcode.com/2022/day/3
+        // Day 3: https://adventofcode.com/2022/day/3
         public static string RucksackReorg(bool part2 = false)
         {
-            // filestream setup
+            // FileStream setup
             string filePath = Environment.CurrentDirectory + @"\inputs\problem3.txt";
+            List<int> inputList = new List<int>();
+            int sum = 0;
 
-            if (!part2)
+            if (part2)
             {
-                List<int> inputList = FileStreamHelper.RucksackReorg(filePath);
-                int sum = inputList.Sum();
+                inputList = ProblemSolver.RucksackReorgPart2(filePath);
+                sum = inputList.Sum();
                 return sum.ToString();
             }
-            else
-            {
-                List<int> inputList = FileStreamHelper.RucksackReorgPart2(filePath);
-                int sum = inputList.Sum();
-                return sum.ToString();
-            }
+
+            // part 1
+            inputList = ProblemSolver.RucksackReorg(filePath);
+            sum = inputList.Sum();
+            return sum.ToString();
         }
 
+        // Day 4: https://adventofcode.com/2022/day/4
+        public static string CampCleanup(bool part2 = false)
+        {
+            // FileStream setup
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem4.txt";
+
+            if (part2)
+            {
+                return ProblemSolver.CampCleanup(filePath, part2);
+            }
+
+            // part 1
+            return ProblemSolver.CampCleanup(filePath);
+        }
     }
 }
