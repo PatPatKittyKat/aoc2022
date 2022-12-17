@@ -8,7 +8,6 @@ namespace aoc2022
 {
     public class Program
     {
-        //TODO: Need a better way to indicate Part2.
         public static void Main(string[] args)
         {
             // List of all problems (25) can be found here: https://adventofcode.com/2022
