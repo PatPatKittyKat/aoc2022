@@ -40,7 +40,7 @@ For part 2, we can still solve by only using the lower/upper ranges. Just need t
 ## Day 5: Supply Stacks
 This problem can be solved with a dictionary of stacks. Reading the input file provides its own challenge though. Because the input is less-well-structured than we've seen so far, and when read top-down from the filestream, the stacks will be reversed. The slot which each char will stack into can be represented programmatically, so we can use that to our advantage and start building our data structure without knowing the # of columns in advance. Example of reading one input line:
 
-![supplystackinput](https://user-images.githubusercontent.com/22353608/208260299-5a1433ea-d7c5-4455-af7b-f9e9fe532064.png)
+![supplystackinput2](https://user-images.githubusercontent.com/22353608/208269388-d26fddc2-ed54-411b-a2ba-4472a36d26d0.png)
 
 We'll use `Dictionary<int, Stack<char>>` to keep track of the supply, and use that to execute rearrangement commands. Once that's done, we can just iterate through each part of the dictionary calling `Stack.Peek()` to return what we need.
 
