@@ -29,7 +29,7 @@ This one was solved by the following: on each line read from the filestream, spl
 The part 2 solution is similar, but with a twist. For each new group, we are looking at 3 lines from the filestream, not just 1 line. Like part 1, we only care about unique characters. So, every time we encounter a duplicated character on different lines in the group, we add to the `dict.Value`, which stores the frequency it appears (max 3 = adds +1 if char appears once or more per line). From the problem definition, we are guaranteed to only have one answer per group, so we can just calculate its value and add to a running total. Then reset the dictionary to reuse for the next group.
 
 ## Day 4: Camp Cleanup
-This one is just about overlapping ranges. It may be normal to keep a log of every section, and then try a .Contains on that structure, checking for matches on any. But this can be solved only using the given lower and upper bounds.
+This one is just about overlapping ranges. It may be normal to keep a log of every covered section, and then try a .Contains on that structure, checking for matches on any. But this can be solved only using the given lower and upper bounds.
 
 Essentially, if `group1.lower` < `group2.lower` AND `group1.upper` > `group2.upper`, then group2 is fully contained by group1. 
 
@@ -37,4 +37,11 @@ For part 2, we can still solve by only using the lower/upper ranges. Just need t
 
 ![campcleanup](https://user-images.githubusercontent.com/22353608/208060915-23d7107c-2d24-4d70-8e3c-b6b4c8fb75fc.png)
 
-## Day 5: .
+## Day 5: Supply Stacks
+This problem can be solved with a dictionary of stacks. Reading the input file provides its own challenge though. Because the input is less-well-structured than we've seen so far, and when read top-down from the filestream, the stacks will be reversed. The slot which each char will stack into can be represented programmatically, so we can use that to our advantage and start building our data structure without knowing the # of columns in advance. Example of reading one input line:
+
+![supplystackinput](https://user-images.githubusercontent.com/22353608/208260299-5a1433ea-d7c5-4455-af7b-f9e9fe532064.png)
+
+We'll use `Dictionary<int, Stack<char>>` to keep track of the supply, and use that to execute rearrangement commands. Once that's done, we can just iterate through each part of the dictionary calling `Stack.Peek()` to return what we need.
+
+For Part 2, we only need to modify the actual `.Pop()` and `.Push()` actions from Part 1. If we store popped values into a tempStack, and then push from the tempStack instead of directly moving each one (as in Part 1), then we can move multiple values at once while keeping their initial ordering.

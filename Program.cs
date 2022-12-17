@@ -12,7 +12,7 @@ namespace aoc2022
         {
             // List of all problems (25) can be found here: https://adventofcode.com/2022
             List<int> problems = new List<int>
-                {1,2,3,4};
+                {1,2,3,4,5};
 
             // Problem Solver Centralized Method
             List<string> answers = ProblemSolverBase.SolveMultiple(problems);
