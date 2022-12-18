@@ -28,6 +28,9 @@ namespace aoc2022
                 case 5:
                     problemName = ProblemStringFormatHelper(problem, "Supply Stacks");
                     break;
+                case 6:
+                    problemName = ProblemStringFormatHelper(problem, "Tuning Trouble");
+                    break;
                 default:
                     problemName = ProblemStringFormatHelper(0, "Could not find problem name");
                     break;

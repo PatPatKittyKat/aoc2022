@@ -265,7 +265,7 @@ namespace aoc2022
                         {
                             for (int i = 0; i < line.Length; i++)
                             {
-                                Char c = line[i];
+                                char c = line[i];
                                 int slot = 0;
 
                                 // Excluding the first slot, ((index-1)/4 plus 1) indicates the slot number each character is assigned into.
@@ -386,6 +386,58 @@ namespace aoc2022
             }
 
             return result;
+        }
+
+        // Day 6
+        public static string TuningTrouble(string filePath, int part = 1)
+        {
+            int packetSize = 0;
+            if (part == 1)
+            {
+                packetSize = 4;
+            }
+            else if (part == 2)
+            {
+                packetSize = 14;
+            }
+            
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                byte[] b = new byte[FILE_BUFFER_SIZE];
+                int readLen;
+
+                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
+                {
+                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
+                    using (StringReader reader = new StringReader(bufferString))
+                    {
+                        string? line = reader.ReadLine();
+                        
+                        Queue<char> queue = new Queue<char>(4);
+                        for (int i = 0; i < line.Length; i++)
+                        {
+                            char c = line[i];
+
+                            if (queue.Count < packetSize)
+                            {
+                                queue.Enqueue(c);
+                            }
+                            else
+                            {
+                                queue.Dequeue();
+                                queue.Enqueue(c);
+                            }
+
+                            // Check uniqueness
+                            if (queue.Distinct().Count() == packetSize)
+                            {
+                                return Convert.ToString(i+1);
+                            }
+                        }
+                    }
+                }
+            }
+            return "";
         }
     }
 }

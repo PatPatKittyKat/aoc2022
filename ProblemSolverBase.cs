@@ -49,6 +49,10 @@ namespace aoc2022
                     result = SupplyStacks();
                     result += separator + part2 + SupplyStacks(2);
                     break;
+                case 6:
+                    result = TuningTrouble();
+                    result += separator + part2 + TuningTrouble(2);
+                    break;
                 default:
                     result = "??";
                     break;
@@ -331,6 +335,21 @@ namespace aoc2022
 
             // part 2
             return ProblemSolver.SupplyStacks(filePath, supply, 2);
+        }
+
+        // Day 6: https://adventofcode.com/2022/day/6
+        public static string TuningTrouble(int part = 1)
+        {
+            // Filestream setup
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem6.txt";
+
+            if (part == 1)
+            {
+                return ProblemSolver.TuningTrouble(filePath);
+            }
+
+            // part 2
+            return ProblemSolver.TuningTrouble(filePath, 2);
         }
     }
 }

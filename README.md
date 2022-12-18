@@ -29,7 +29,7 @@ This one was solved by the following: on each line read from the filestream, spl
 The part 2 solution is similar, but with a twist. For each new group, we are looking at 3 lines from the filestream, not just 1 line. Like part 1, we only care about unique characters. So, every time we encounter a duplicated character on different lines in the group, we add to the `dict.Value`, which stores the frequency it appears (max 3 = adds +1 if char appears once or more per line). From the problem definition, we are guaranteed to only have one answer per group, so we can just calculate its value and add to a running total. Then reset the dictionary to reuse for the next group.
 
 ## Day 4: Camp Cleanup
-This one is just about overlapping ranges. It may be normal to keep a log of every covered section, and then try a .Contains on that structure, checking for matches on any. But this can be solved only using the given lower and upper bounds.
+The problem here is to determine overlapping ranges. It may be normal to keep a log of every covered section, and then try a .Contains on that structure, checking for matches on any. But this approach will solve it with only the given lower and upper bounds.
 
 Essentially, if `group1.lower` < `group2.lower` AND `group1.upper` > `group2.upper`, then group2 is fully contained by group1. 
 
@@ -45,3 +45,10 @@ This problem can be solved with a dictionary of stacks. Reading the input file p
 We'll use `Dictionary<int, Stack<char>>` to keep track of the supply, and use that to execute rearrangement commands. Once that's done, we can just iterate through each part of the dictionary calling `Stack.Peek()` to return what we need.
 
 For Part 2, we only need to modify the actual `.Pop()` and `.Push()` actions from Part 1. If we store popped values into a tempStack, and then push from the tempStack instead of directly moving each one (as in Part 1), then we can move multiple values at once while keeping their initial ordering.
+
+## Day 6: Tuning Trouble
+One approach to solve this is to keep a running queue of size 4 which updates for each character read from the given input. After every insert, we can check for uniqueness with `queue.Distinct().Count()` and if that value is 4 (indicating every value in the queue of size 4 is unique), then we've got our answer. The index + 1.
+
+For Part 2, our solution is already there, we just need to change the expected queue size from 4 to 16.
+
+## Day 7: .
