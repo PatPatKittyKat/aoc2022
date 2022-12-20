@@ -51,4 +51,16 @@ One approach to solve this is to keep a running queue of size 4 which updates fo
 
 For Part 2, our solution is already there, we just need to change the expected queue size from 4 to 16.
 
-## Day 7: .
+## Day 7: No Space Left On Device
+Tough problem. For file systems, a decent representation can be built out with a nonbinary Tree data structure, but AFAIK, these do not inherently exist within C# because specific implementation is largely a case-by-case basis. So we will have to build our own here. From the problem, it looks like we will need the following:
+- We need to be able to navigate into and out of each Node (including skip back to root)
+- When `ls` is executed, we keep adding to the existing node until we see that another command has been run.
+- A Node can be either a Directory or a File:
+    - Directory: no inherent filesize, contains children
+    - File: has filesize, no children
+- All nodes must keep track of their parent directory
+- Two command types: Navigational (`cd`) and Informational (`ls`)
+    - Navigational: does not create new nodes, only traverses through the tree
+    - Informational: will create new nodes
+
+Part2, if we need to keep the file names, just add to the class and insert via string[] splitString, splitString[1].

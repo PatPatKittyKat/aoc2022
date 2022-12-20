@@ -53,6 +53,14 @@ namespace aoc2022
                     result = TuningTrouble();
                     result += separator + part2 + TuningTrouble(2);
                     break;
+                case 7:
+                    result = NoSpaceLeftOnDevice();
+                    result += separator + part2 + NoSpaceLeftOnDevice(2);
+                    break;
+                case 8:
+                    result = TreetopTreeHouse();
+                    result += separator + part2 + TreetopTreeHouse(2);
+                    break;
                 default:
                     result = "??";
                     break;
@@ -350,6 +358,36 @@ namespace aoc2022
 
             // part 2
             return ProblemSolver.TuningTrouble(filePath, 2);
+        }
+
+        // Day 7: httpss://adventofcode.com/2022/day/7
+        public static string NoSpaceLeftOnDevice(int part = 1)
+        {
+            // Filestream setup
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem7test.txt";
+
+            if (part == 1)
+            {
+                return ProblemSolver.NoSpaceLeftOnDevice(filePath);
+            }
+
+            // part 2
+            return ProblemSolver.NoSpaceLeftOnDevice(filePath, 2);
+        }
+
+        // Day 8: httpss://adventofcode.com/2022/day/8
+        public static string TreetopTreeHouse(int part = 1)
+        {
+            // Filestream setup
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem8.txt";
+
+            if (part == 1)
+            {
+                return ProblemSolver.TreetopTreeHouse(filePath);
+            }
+
+            // part 2
+            return ProblemSolver.TreetopTreeHouse(filePath, 2);
         }
     }
 }

@@ -31,6 +31,12 @@ namespace aoc2022
                 case 6:
                     problemName = ProblemStringFormatHelper(problem, "Tuning Trouble");
                     break;
+                case 7:
+                    problemName = ProblemStringFormatHelper(problem, "No Space Left On Device", "*");
+                    break;
+                case 8:
+                    problemName = ProblemStringFormatHelper(problem, "Treetop Tree House");
+                    break;
                 default:
                     problemName = ProblemStringFormatHelper(0, "Could not find problem name");
                     break;
@@ -39,6 +45,6 @@ namespace aoc2022
             return problemName;
         }
 
-        private static string ProblemStringFormatHelper(int day, string name) => string.Concat("Day ", day, ": ", name);
+        private static string ProblemStringFormatHelper(int day, string name, string mark = "") => string.Concat(mark, "Day ", day, ": ", name);
     }
 }

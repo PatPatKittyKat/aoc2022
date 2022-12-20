@@ -400,7 +400,7 @@ namespace aoc2022
             {
                 packetSize = 14;
             }
-            
+
             using (FileStream fs = File.OpenRead(filePath))
             {
                 byte[] b = new byte[FILE_BUFFER_SIZE];
@@ -439,5 +439,132 @@ namespace aoc2022
             }
             return "";
         }
+
+        // Day 7
+        public static string NoSpaceLeftOnDevice(string filePath, int part = 1)
+        {
+            // // Set-up file system with root.
+            // Dictionary<string, FileSystemObject> fileSystem = new Dictionary<string, FileSystemObject>();
+            // FileSystemObject root = new FileSystemObject()
+            // {
+            //     Parent = string.Empty,
+            //     Name = "/",
+            //     Children = new List<FileSystemObject>(),
+            //     Filesize = 0
+            // };
+            // fileSystem.Add("/", root);
+
+            // string currDirName = root.Name;
+
+            // // Reading filestream
+            // using (FileStream fs = File.OpenRead(filePath))
+            // {
+            //     byte[] b = new byte[FILE_BUFFER_SIZE];
+            //     int readLen;
+
+            //     while ((readLen = fs.Read(b, 0, b.Length)) > 0)
+            //     {
+            //         string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
+            //         using (StringReader reader = new StringReader(bufferString))
+            //         {
+            //             string? line;
+            //             while ((line = reader.ReadLine()) != null)
+            //             {
+            //                 string[] splitString = line.Split(' ');
+
+            //                 // If line does not begin with '$', we are listing out directory contents
+            //                 if (line.StartsWith('$'))
+            //                 {
+
+            //                     if (splitString[1] == "cd")
+            //                     {
+            //                         // "$ cd /" => go back to root
+            //                         if (splitString[2] == "/")
+            //                         {
+            //                             currDirName = root.Name;
+            //                         }
+
+            //                         // "$ cd .." => go back to Parent node
+            //                         else if (splitString[2] == "..")
+            //                         {
+            //                             currDirName = fileSystem[currDirName].Parent;
+            //                         }
+
+            //                         // "$ cd dirName" => navigate into child Directory
+            //                         else
+            //                         {
+            //                             currDirName = splitString[2];
+            //                         }
+            //                     }
+
+            //                     // "$ ls" => ignore, since we know lines not beginning with "$" will be the CurrentDirectory contents.
+            //                     else 
+            //                     {
+            //                         // do nothing
+            //                     }
+            //                 }
+            //                 else
+            //                 {
+            //                     // Create Directory (if doesn't already exist)
+            //                     if (line.StartsWith("dir"))
+            //                     {
+            //                         if (!fileSystem.TryGetValue(splitString[1], out FileSystemObject fso))
+            //                         {
+            //                             FileSystemObject newDir = new FileSystemObject()
+            //                             {
+            //                                 Parent = currDirName,
+            //                                 Name = splitString[1],
+            //                                 Children = new List<FileSystemObject>(),
+            //                                 Filesize = 0
+            //                             };
+
+            //                             fileSystem[currDirName].Children.Add(newDir);
+            //                         }
+            //                     }
+
+            //                     // Add File to Current Directory (if it doesn't already exist)
+            //                     else
+            //                     {
+            //                         if (!fileSystem.TryGetValue(splitString[1], out FileSystemObject fso))
+            //                         {
+            //                             FileSystemObject newFile = new FileSystemObject()
+            //                             {
+            //                                 Parent = currDirName,
+            //                                 Name = splitString[1],
+            //                                 Children = new List<FileSystemObject>(),
+            //                                 Filesize = Convert.ToInt32(splitString[0])
+            //                             };
+
+            //                             fileSystem[currDirName].Children.Add(newFile);
+
+            //                             // Increase Filesize for all Parents up to the root
+            //                             string iterator = currDirName;
+            //                             while (!string.IsNullOrEmpty(fileSystem[iterator].Parent))
+            //                             {
+            //                                 int fileSize = fileSystem[iterator].Filesize;
+            //                                 iterator = fileSystem[iterator].Parent;
+            //                                 fileSystem[iterator].Filesize = fileSize;
+            //                             }
+            //                         }
+                                    
+            //                     }
+
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+            return "";
+        }
+
+        // Day 8
+        public static string TreetopTreeHouse(string filePath, int part = 1)
+        {
+            return "";
+        }
+
     }
+
+    
 }
