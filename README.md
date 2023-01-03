@@ -64,3 +64,16 @@ Tough problem. For file systems, a decent representation can be built out with a
     - Informational: will create new nodes
 
 Part2, if we need to keep the file names, just add to the class and insert via string[] splitString, splitString[1].
+
+## Day 8: Treetop Tree House
+This one presents itself as a 2D array problem. Notating as (x,y) coordinates, we will check every coordinates' ±x and ±y values until reaching an edge. We can use a secondary structure to store whether or not a tree (coordinate) is visible. We'll load the input file twice, once to count the rows/columns for our array declaration, and then a second time to populate values.
+
+As for the problem solution, for every inner coordinate, we will check:
+- every +X value until reaching the edge
+- every -X value until reaching the edge
+- every +Y value until reaching the edge
+- every -Y value until reaching the edge
+
+If at any point, we reach an edge without encountering a tree with height ≥ currentHeight, it can be marked as visible.
+
+## Day 9: 

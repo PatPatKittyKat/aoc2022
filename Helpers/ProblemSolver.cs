@@ -561,6 +561,143 @@ namespace aoc2022
         // Day 8
         public static string TreetopTreeHouse(string filePath, int part = 1)
         {
+            // Get # rows and columns
+            int numRows = 0;
+            int numCols = 0;
+            int result = 0;
+
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                byte[] b = new byte[FILE_BUFFER_SIZE];
+                int readLen;
+
+                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
+                {
+                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
+                    using (StringReader reader = new StringReader(bufferString))
+                    {
+                        string? line;
+                        bool isFirstLine = true;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            if (isFirstLine)
+                            {
+                                numCols = line.Length;
+                                isFirstLine = false;
+                            }
+
+                            numRows += 1;
+                        }
+                    }
+                }
+            }
+            
+            Console.WriteLine("rows = {0}, cols = {1}", numRows, numCols);
+
+            // 2D Array
+            int[,] array = new int[numRows, numCols];
+            int rowCounter = 0;
+
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                byte[] b = new byte[FILE_BUFFER_SIZE];
+                int readLen;
+
+                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
+                {
+                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
+                    using (StringReader reader = new StringReader(bufferString))
+                    {
+                        string? line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            for (int i = 0; i < line.Length; i++)
+                            {
+                                int height = (int)Char.GetNumericValue(line[i]);
+                                array[rowCounter,i] = height;
+                            }
+                            rowCounter++;
+                        }
+                    }
+                }
+            }
+            
+            //// Debugging
+            // for (int i = 0; i < numRows; i++)
+            // {
+            //     for (int j = 0; j < numCols; j++)
+            //     {
+            //         Console.Write(array[i,j]);
+            //     }
+            //     Console.WriteLine("");
+            // }
+
+            // Console.WriteLine("printing [0,3]: " + array[0,3]);
+            // Console.WriteLine("printing [2,4]: " + array[2,4]);
+            // Console.WriteLine("printing [1,3]: " + array[1,3]);
+            // Console.WriteLine("printing [4,3]: " + array[4,3]);
+
+            //Console.WriteLine("# visible on edges: {0}", (numRows-1)*2 + (numCols-1)*2);
+            int numVisibleAtEdge = (numRows-1)*2 + (numCols-1)*2;
+
+            // Check if coordinate can reach an edge without encountering any others along the X or Y axis >= its value.
+            for (int i = 1; i < numRows-1; i++)
+            {
+                for (int j = 1; j < numCols-1; j++)
+                {
+                    Console.Write(array[i,j]);
+                    bool isVisible = false;
+                    int currX = 0;
+                    int currY = 0;
+
+                    // Check -x, +x, -y, +y
+                    currX = i-1;
+                    while (currX != -1)
+                    {
+                        if (array[currX,j] >= array[i,j])
+                        {
+                            isVisible = true;
+                        }
+                        currX--;
+                    }
+                    currX = i+1;
+                    while (currX != numCols)
+                    {
+                        if (array[currX,j] >= array[i,j])
+                        {
+                            isVisible = true;
+                        }
+                        currX++;
+                    }
+                    currY = j-1;
+                    while (currY != -1)
+                    {
+                        if (array[i,currY] >= array[i,j])
+                        {
+                            isVisible = true;
+                        }
+                        currY--;
+                    }
+                    currY = j+1;
+                    while (currY != numRows)
+                    {
+                        if (array[i,currY] >= array[i,j])
+                        {
+                            isVisible = true;
+                        }
+                        currY++;
+                    }
+
+                    if (isVisible)
+                    {
+                        result++;
+                    }
+                }
+                Console.WriteLine("");
+            }
+            
+            Console.WriteLine("result: {0}", result);
+            Console.WriteLine("answer: {0}", result + numVisibleAtEdge);
             return "";
         }
 

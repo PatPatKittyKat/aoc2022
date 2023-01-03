@@ -59,7 +59,7 @@ namespace aoc2022
                     break;
                 case 8:
                     result = TreetopTreeHouse();
-                    result += separator + part2 + TreetopTreeHouse(2);
+                    //result += separator + part2 + TreetopTreeHouse(2);
                     break;
                 default:
                     result = "??";
@@ -379,7 +379,7 @@ namespace aoc2022
         public static string TreetopTreeHouse(int part = 1)
         {
             // Filestream setup
-            string filePath = Environment.CurrentDirectory + @"\inputs\problem8.txt";
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem8test.txt";
 
             if (part == 1)
             {
