@@ -592,7 +592,7 @@ namespace aoc2022
                 }
             }
             
-            Console.WriteLine("rows = {0}, cols = {1}", numRows, numCols);
+            //Console.WriteLine("rows = {0}, cols = {1}", numRows, numCols);
 
             // 2D Array
             int[,] array = new int[numRows, numCols];
@@ -645,8 +645,8 @@ namespace aoc2022
             {
                 for (int j = 1; j < numCols-1; j++)
                 {
-                    Console.Write(array[i,j]);
-                    bool isVisible = false;
+                    //Console.Write(array[i,j]);
+                    bool isVisible = true;
                     int currX = 0;
                     int currY = 0;
 
@@ -656,49 +656,72 @@ namespace aoc2022
                     {
                         if (array[currX,j] >= array[i,j])
                         {
-                            isVisible = true;
+                            isVisible = false;
                         }
                         currX--;
                     }
+                    if (isVisible)
+                    {
+                        result++;
+                        continue;
+                    }
+
+                    isVisible = true;
                     currX = i+1;
                     while (currX != numCols)
                     {
                         if (array[currX,j] >= array[i,j])
                         {
-                            isVisible = true;
+                            isVisible = false;
                         }
                         currX++;
                     }
+                    if (isVisible)
+                    {
+                        result++;
+                        continue;
+                    }
+
+                    isVisible = true;
                     currY = j-1;
                     while (currY != -1)
                     {
                         if (array[i,currY] >= array[i,j])
                         {
-                            isVisible = true;
+                            isVisible = false;
                         }
                         currY--;
                     }
+                    if (isVisible)
+                    {
+                        result++;
+                        continue;
+                    }
+
+                    isVisible = true;
                     currY = j+1;
                     while (currY != numRows)
                     {
                         if (array[i,currY] >= array[i,j])
                         {
-                            isVisible = true;
+                            isVisible = false;
                         }
                         currY++;
                     }
-
                     if (isVisible)
                     {
                         result++;
+                        continue;
                     }
+                    
                 }
-                Console.WriteLine("");
+                //Console.WriteLine("");
             }
             
-            Console.WriteLine("result: {0}", result);
-            Console.WriteLine("answer: {0}", result + numVisibleAtEdge);
-            return "";
+            //Console.WriteLine("result: {0}", result);
+            //Console.WriteLine("numVisibleAtEdge: {0}", numVisibleAtEdge);
+            //Console.WriteLine("answer: {0}", result + numVisibleAtEdge);
+            return Convert.ToString(result + numVisibleAtEdge);
         }
 
     }

@@ -379,7 +379,7 @@ namespace aoc2022
         public static string TreetopTreeHouse(int part = 1)
         {
             // Filestream setup
-            string filePath = Environment.CurrentDirectory + @"\inputs\problem8test.txt";
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem8.txt";
 
             if (part == 1)
             {

@@ -76,4 +76,7 @@ As for the problem solution, for every inner coordinate, we will check:
 
 If at any point, we reach an edge without encountering a tree with height ≥ currentHeight, it can be marked as visible.
 
+![day8](https://user-images.githubusercontent.com/22353608/210458011-6cc69446-f898-4ff6-abcd-016d843fc26d.png)
+
+
 ## Day 9: 
