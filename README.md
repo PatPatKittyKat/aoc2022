@@ -78,5 +78,6 @@ If at any point, we reach an edge without encountering a tree with height ≥ cu
 
 ![day8](https://user-images.githubusercontent.com/22353608/210458011-6cc69446-f898-4ff6-abcd-016d843fc26d.png)
 
+Part 2 can utilize the same approach/structure, but instead of keeping track of whether or not a tree is visible, we'll need to store int values.
 
 ## Day 9: 

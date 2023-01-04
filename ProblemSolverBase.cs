@@ -59,7 +59,7 @@ namespace aoc2022
                     break;
                 case 8:
                     result = TreetopTreeHouse();
-                    //result += separator + part2 + TreetopTreeHouse(2);
+                    result += separator + part2 + TreetopTreeHouse(2);
                     break;
                 default:
                     result = "??";
