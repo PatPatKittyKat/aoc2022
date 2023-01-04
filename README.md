@@ -80,4 +80,4 @@ If at any point, we reach an edge without encountering a tree with height ≥ cu
 
 Part 2 can utilize the same approach/structure, but instead of keeping track of whether or not a tree is visible, we'll need to store int values.
 
-## Day 9: 
+## Day 9: Rope Bridge

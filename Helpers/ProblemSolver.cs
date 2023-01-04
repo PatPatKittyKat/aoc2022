@@ -819,7 +819,6 @@ namespace aoc2022
                     }
                     //Console.WriteLine("");
                 }
-
                 return Convert.ToString(bestScenicScore);
             }
             
