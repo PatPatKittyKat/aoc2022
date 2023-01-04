@@ -592,8 +592,6 @@ namespace aoc2022
                 }
             }
             
-            //Console.WriteLine("rows = {0}, cols = {1}", numRows, numCols);
-
             // 2D Array
             int[,] array = new int[numRows, numCols];
             int rowCounter = 0;
@@ -621,38 +619,25 @@ namespace aoc2022
                     }
                 }
             }
-            
-            if (part == 1)
+
+            int numVisibleAtEdge = (numRows-1)*2 + (numCols-1)*2;
+            int bestScenicScore = 0;
+            int currX, currY;
+
+            // Check whether a coordinate can reach an edge without encountering any others along the X or Y axis that is >= its value.
+            for (int i = 1; i < numRows-1; i++)
             {
-                //// Debugging
-                // for (int i = 0; i < numRows; i++)
-                // {
-                //     for (int j = 0; j < numCols; j++)
-                //     {
-                //         Console.Write(array[i,j]);
-                //     }
-                //     Console.WriteLine("");
-                // }
-
-                // Console.WriteLine("printing [0,3]: " + array[0,3]);
-                // Console.WriteLine("printing [2,4]: " + array[2,4]);
-                // Console.WriteLine("printing [1,3]: " + array[1,3]);
-                // Console.WriteLine("printing [4,3]: " + array[4,3]);
-
-                //Console.WriteLine("# visible on edges: {0}", (numRows-1)*2 + (numCols-1)*2);
-                int numVisibleAtEdge = (numRows-1)*2 + (numCols-1)*2;
-
-                // Check if coordinate can reach an edge without encountering any others along the X or Y axis >= its value.
-                for (int i = 1; i < numRows-1; i++)
+                for (int j = 1; j < numCols-1; j++)
                 {
-                    for (int j = 1; j < numCols-1; j++)
-                    {
-                        //Console.Write(array[i,j]);
-                        bool isVisible = true;
-                        int currX = 0;
-                        int currY = 0;
+                    currX = 0;
+                    currY = 0;
 
-                        // Check -x, +x, -y, +y
+                    // Part 1 and Part 2 solutions
+                    if (part == 1)
+                    {
+                        bool isVisible = true;
+
+                        // Check +Y
                         currX = i-1;
                         while (currX != -1)
                         {
@@ -668,6 +653,7 @@ namespace aoc2022
                             continue;
                         }
 
+                        // Check -Y
                         isVisible = true;
                         currX = i+1;
                         while (currX != numCols)
@@ -684,6 +670,7 @@ namespace aoc2022
                             continue;
                         }
 
+                        // Check -X
                         isVisible = true;
                         currY = j-1;
                         while (currY != -1)
@@ -700,6 +687,7 @@ namespace aoc2022
                             continue;
                         }
 
+                        // Check +X
                         isVisible = true;
                         currY = j+1;
                         while (currY != numRows)
@@ -715,32 +703,15 @@ namespace aoc2022
                             result++;
                             continue;
                         }
-                        
                     }
-                    //Console.WriteLine("");
-                }
-                
-                //Console.WriteLine("result: {0}", result);
-                //Console.WriteLine("numVisibleAtEdge: {0}", numVisibleAtEdge);
-                //Console.WriteLine("answer: {0}", result + numVisibleAtEdge);
-                return Convert.ToString(result + numVisibleAtEdge);
-            }
-            else if (part == 2)
-            {
-                int bestScenicScore = 0;
-
-                for (int i = 1; i < numRows-1; i++)
-                {
-                    for (int j = 1; j < numCols-1; j++)
+                    else if (part == 2)
                     {
-                        //Console.Write(array[i,j]);
-                        //bool isVisible = true;
                         int currScenicScore = 1;
                         int currViewingDistance = 0;
-                        int currX = 0;
-                        int currY = 0;
+                        currX = 0;
+                        currY = 0;
 
-                        // Check -x, +x, -y, +y
+                        // Check +Y
                         currX = i-1;
                         while (currX != -1)
                         {
@@ -757,7 +728,7 @@ namespace aoc2022
                         }
                         currScenicScore*=currViewingDistance;
 
-                        //isVisible = true;
+                        // Check -Y
                         currViewingDistance = 0;
                         currX = i+1;
                         while (currX != numCols)
@@ -775,7 +746,7 @@ namespace aoc2022
                         }
                         currScenicScore*=currViewingDistance;
 
-                        //isVisible = true;
+                        // Check -X
                         currViewingDistance = 0;
                         currY = j-1;
                         while (currY != -1)
@@ -793,7 +764,7 @@ namespace aoc2022
                         }
                         currScenicScore*=currViewingDistance;
 
-                        //isVisible = true;
+                        // Check +X
                         currViewingDistance = 0;
                         currY = j+1;
                         while (currY != numRows)
@@ -817,12 +788,20 @@ namespace aoc2022
                             bestScenicScore = currScenicScore;
                         }
                     }
-                    //Console.WriteLine("");
                 }
+            }
+            
+            // Return answers
+            if (part == 1)
+            {
+                return Convert.ToString(result + numVisibleAtEdge);
+            }
+            else if (part == 2)
+            {
                 return Convert.ToString(bestScenicScore);
             }
             
-            return Convert.ToString(result);
+            return Convert.ToString("");
         }
 
     }

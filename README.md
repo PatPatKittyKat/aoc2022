@@ -1,7 +1,5 @@
 Hello :)
-Haven't heard too much about AoC until recently, and I figured I could use
-a refresher on setting up new projects from scratch, new source control, etc and working on some
-simpler problems without any pressure to finish before some deadline. Happy reading.
+Haven't heard too much about AoC until after it started, but I figured I could use a refresher on setting up a new project from scratch, with source control, etc and working on some simpler problems without any pressure to finish before a deadline. Happy reading.
 
 [//]: # "diagram editor: https://www.diagrameditor.com/"
 
@@ -66,7 +64,9 @@ Tough problem. For file systems, a decent representation can be built out with a
 Part2, if we need to keep the file names, just add to the class and insert via string[] splitString, splitString[1].
 
 ## Day 8: Treetop Tree House
-This one presents itself as a 2D array problem. Notating as (x,y) coordinates, we will check every coordinates' ±x and ±y values until reaching an edge. We can use a secondary structure to store whether or not a tree (coordinate) is visible. We'll load the input file twice, once to count the rows/columns for our array declaration, and then a second time to populate values.
+This one presents itself as a 2D array problem. Notating as (x,y) coordinates, we will iterate through every coordinates' ±x and ±y values until reaching an edge. If we never encounter a value ≥ the current coordinate, then we can add +1 to our total number of visible trees. 
+
+We'll load the input file twice, once to count the rows/columns for our array declaration, and then a second time to populate values.
 
 As for the problem solution, for every inner coordinate, we will check:
 - every +X value until reaching the edge
