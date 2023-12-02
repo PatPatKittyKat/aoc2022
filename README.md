@@ -86,3 +86,6 @@ This problem is describing navigation within a 2D array, where we must keep trac
 *T* will always follow *H*, and throughout our iterations, when *H* moves more than 1 space beyond *T*'s reach, *T* will be move into *H*'s previous spot.
 
 For Part 1, the answer is determined by the number of spots visited at least once by *T*. One way to represent this within the code could be a Dictionary where the keys are (x,y) coordinates, and the values are # times the point was visited by *T*.
+
+## Day 10 and beyond:
+I ended up needing to put in many overtime hours at work for multiple urgent client deadlines. Could not really afford to continue AoC anymore when work ends at 3 AM at times. Got really burned out, but I plan on picking this back up again next year. If you are reading this, thanks for following along up til now :)
