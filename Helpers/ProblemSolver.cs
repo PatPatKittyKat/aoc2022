@@ -804,7 +804,107 @@ namespace aoc2022
             return Convert.ToString("");
         }
 
-    }
+        // Day 9
+        public static string RopeBridge(string filePath, int part = 1)
+        {
+            // Get # rows and columns
+            int minX,maxX,minY,maxY,currX,currY,result;
+            minX = maxX = minY = maxY = currX = currY = result = 0;
 
-    
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                byte[] b = new byte[FILE_BUFFER_SIZE];
+                int readLen;
+
+                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
+                {
+                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
+                    using (StringReader reader = new StringReader(bufferString))
+                    {
+                        string? line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            // Starting at (0,0), we can find our required array size by tracking the extremes for X and Y values.
+                            string[] inputLine = line.Split(' ');
+                            char direction = Convert.ToChar(inputLine[0]);
+                            int numSteps = Convert.ToInt32(inputLine[1]);
+
+                            switch (direction)
+                            {
+                                case 'R':
+                                    currX += numSteps;
+                                    if (currX > maxX) maxX = currX;
+                                    break;
+                                case 'L':
+                                    currX -= numSteps;
+                                    if (currX < minX) minX = currX;
+                                    break;
+                                case 'U':
+                                    currY += numSteps;
+                                    if (currY > maxY) maxY = currY;
+                                    break;
+                                case 'D':
+                                    currY -= numSteps;
+                                    if (currY < minY) minY = currY;
+                                    break;
+                            };
+                        }
+                    }
+                }
+            }
+            
+            // 2D Array: Y represents which column we're on (left-right), X represents which row we're on (up-down)
+            int[,] array = new int[maxY-minY+1, maxX-minX+1];
+            Dictionary<Tuple<int,int>, bool> model = new Dictionary<Tuple<int,int>, bool>(); // Key: Coordinate, Value: isVisited
+            currX = currY = 0;
+            RopeBridgeHelper.BuildModel(array, ref model);
+
+            //List<RopeBridgeModel> model2 = RopeBridgeHelper.BuildModel2(array, minX, maxX, minY, maxY);
+
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                byte[] b = new byte[FILE_BUFFER_SIZE];
+                int readLen;
+
+                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
+                {
+                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
+                    using (StringReader reader = new StringReader(bufferString))
+                    {
+                        string? line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] inputLine = line.Split(' ');
+                            char direction = Convert.ToChar(inputLine[0]);
+                            int numSteps = Convert.ToInt32(inputLine[1]);
+
+                            switch (direction)
+                            {
+                                case 'R':
+                                    currX += numSteps;
+                                    break;
+                                case 'L':
+                                    currX -= numSteps;
+                                    break;
+                                case 'U':
+                                    currY += numSteps;
+                                    break;
+                                case 'D':
+                                    currY -= numSteps;
+                                    break;
+                                
+                            };
+
+                            Tuple<int,int> currentCoordinate = new Tuple<int,int>(currY,currX);
+                            RopeBridgeHelper.FlagVisitedCoordinate(currentCoordinate, ref model);
+                        }
+                    }
+                }
+            }
+
+            result = model.Count(x => x.Value);
+            return Convert.ToString(result);
+        }
+
+    }
 }

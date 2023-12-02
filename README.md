@@ -81,3 +81,8 @@ If at any point, we reach an edge without encountering a tree with height ≥ cu
 Part 2 can utilize the same approach/structure, but instead of keeping track of whether or not a tree is visible, we'll need to store int values.
 
 ## Day 9: Rope Bridge
+This problem is describing navigation within a 2D array, where we must keep track of two moving points within the space. We can solve it with an initial setup similar to Day 8. We will initialize a 2D array and build our problem solution by navigating coordinates within the array, while keeping track of both the Head (*H*) and Tail (*T*) positions.
+
+*T* will always follow *H*, and throughout our iterations, when *H* moves more than 1 space beyond *T*'s reach, *T* will be move into *H*'s previous spot.
+
+For Part 1, the answer is determined by the number of spots visited at least once by *T*. One way to represent this within the code could be a Dictionary where the keys are (x,y) coordinates, and the values are # times the point was visited by *T*.

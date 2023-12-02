@@ -61,6 +61,10 @@ namespace aoc2022
                     result = TreetopTreeHouse();
                     result += separator + part2 + TreetopTreeHouse(2);
                     break;
+                case 9:
+                    result = RopeBridge();
+                    result += separator + part2 + RopeBridge(2);
+                    break;
                 default:
                     result = "??";
                     break;
@@ -388,6 +392,21 @@ namespace aoc2022
 
             // part 2
             return ProblemSolver.TreetopTreeHouse(filePath, 2);
+        }
+
+        // Day 9: httpss://adventofcode.com/2022/day/9
+        public static string RopeBridge(int part = 1)
+        {
+            // Filestream setup
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem9test.txt";
+
+            if (part == 1)
+            {
+                return ProblemSolver.RopeBridge(filePath);
+            }
+
+            // part 2
+            return ProblemSolver.RopeBridge(filePath, 2);
         }
     }
 }
