@@ -28,6 +28,10 @@ namespace aoc2022
 
             switch (problem)
             {
+                case 0:
+                    result = Sandbox();
+                    //result += separator + part2 + Sample(2);
+                    break;
                 case 1:
                     result = CalorieCounting();
                     result += separator + part2 + CalorieCounting(2);
@@ -65,12 +69,25 @@ namespace aoc2022
                     result = RopeBridge();
                     result += separator + part2 + RopeBridge(2);
                     break;
+                case 10:
+                    result = CathodeRayTube();
+                    result += separator + part2 + CathodeRayTube(2);
+                    break;
                 default:
                     result = "??";
                     break;
             };
 
             return problemInfo + separator + "Answer: " + result;
+        }
+
+        // Just a sandbox method
+        public static string Sandbox(int part = 1)
+        {
+            LinkedList<int> ll = new LinkedList<int>(new [] {-100, 200, 500, 600, 800, 1000, 1200});
+            LinkedListNode<int> lastNode = ll.Last;
+            string returnString = lastNode.NextOrFirst().Value.ToString();
+            return string.Format(returnString, CultureInfo.InvariantCulture);
         }
         
         // Day 1: https://adventofcode.com/2022/day/1
@@ -364,7 +381,7 @@ namespace aoc2022
             return ProblemSolver.TuningTrouble(filePath, 2);
         }
 
-        // Day 7: httpss://adventofcode.com/2022/day/7
+        // Day 7: https://adventofcode.com/2022/day/7
         public static string NoSpaceLeftOnDevice(int part = 1)
         {
             // Filestream setup
@@ -379,7 +396,7 @@ namespace aoc2022
             return ProblemSolver.NoSpaceLeftOnDevice(filePath, 2);
         }
 
-        // Day 8: httpss://adventofcode.com/2022/day/8
+        // Day 8: https://adventofcode.com/2022/day/8
         public static string TreetopTreeHouse(int part = 1)
         {
             // Filestream setup
@@ -394,7 +411,7 @@ namespace aoc2022
             return ProblemSolver.TreetopTreeHouse(filePath, 2);
         }
 
-        // Day 9: httpss://adventofcode.com/2022/day/9
+        // Day 9: https://adventofcode.com/2022/day/9
         public static string RopeBridge(int part = 1)
         {
             // Filestream setup
@@ -407,6 +424,22 @@ namespace aoc2022
 
             // part 2
             return ProblemSolver.RopeBridge(filePath, 2);
+        }
+
+        // Day 10: https://adventofcode.com/2022/day/10
+        public static string CathodeRayTube(int part = 1)
+        {
+            // Filestream setup
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem10.txt";
+
+            if (part == 1)
+            {
+                return ProblemSolver.CathodeRayTube(filePath);
+            }
+
+            // part 2
+            //return ProblemSolver.CathodeRayTube(filePath, 2);
+            return "";
         }
     }
 }

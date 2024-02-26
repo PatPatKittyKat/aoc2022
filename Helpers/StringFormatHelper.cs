@@ -13,6 +13,9 @@ namespace aoc2022
             string problemName;
             switch (problem)
             {
+                case 0:
+                    problemName = "Sandbox Method";
+                    break;
                 case 1:
                     problemName = ProblemStringFormatHelper(problem, "Calorie Counting");
                     break;
@@ -38,7 +41,10 @@ namespace aoc2022
                     problemName = ProblemStringFormatHelper(problem, "Treetop Tree House");
                     break;
                 case 9:
-                    problemName = ProblemStringFormatHelper(problem, "Rope Bridge");
+                    problemName = ProblemStringFormatHelper(problem, "Rope Bridge", "*");
+                    break;
+                case 10:
+                    problemName = ProblemStringFormatHelper(problem, "Cathode Ray Tube");
                     break;
                 default:
                     problemName = ProblemStringFormatHelper(0, "Could not find problem name");

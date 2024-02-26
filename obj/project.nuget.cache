@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "RsG6RmLOvn3y5Yp2C+LXUlUSmG669T4vxyvRbj5mT5PwxVupO9InkftGq9ly4/Z3tnOmg0aghAW0ymMS5Dg+DQ==",
+  "dgSpecHash": "VhKjix4wYF7bvM/PnRpvmJt8oPmYqGFrn4lslKaJNqP+Ho1tFKKFTOC2xbO1S7y8j92yBcJ+SqplABq5ibUeUA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Anthony\\OneDrive\\Documents\\VSCode\\aoc2022\\aoc2022.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Anthony\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\Anthony\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\Anthony\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\Anthony\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections;
+using System.Globalization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -904,6 +905,77 @@ namespace aoc2022
 
             result = model.Count(x => x.Value);
             return Convert.ToString(result);
+        }
+
+        // Day 10
+        public static string CathodeRayTube(string filePath, int part = 1)
+        {
+            int x = 1;
+            int sum = 0;
+            // int test = 20;
+            // int test1= 60;
+            // int test2= 100;
+
+            // int val = (test2+20)%40;
+
+            //Console.WriteLine("\n\n Test: " + val + "\n\n");
+
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                byte[] b = new byte[FILE_BUFFER_SIZE];
+                int readLen;
+
+                while ((readLen = fs.Read(b, 0, b.Length)) > 0)
+                {
+                    string bufferString = System.Text.Encoding.Default.GetString(b, 0, readLen);
+                    using (StringReader reader = new StringReader(bufferString))
+                    {
+                        string? line;
+                        int cycleIteration = 1;
+                        Queue<int> queue = new Queue<int>();
+
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] splitInstruction = line.Split(' ');
+                            string op = line.Split(' ')[0];
+
+                            //Console.WriteLine("\nCycle iteration begin: " + cycleIteration + " | X value: " + x);
+
+                            if ((cycleIteration + 20) % 40 == 0)
+                            {
+                                sum += x*cycleIteration;
+                            }
+
+                            if (op == "addx")
+                            {
+                                int instructionValue = Convert.ToInt32(splitInstruction[1]);
+                                queue.Enqueue(instructionValue);
+                                //Console.WriteLine("\nCycle iteration during: " + cycleIteration + " | X value: " + x);
+                                cycleIteration++;
+
+                                if ((cycleIteration + 20) % 40 == 0)
+                                {
+                                    sum += x*cycleIteration;
+                                }
+                            }
+                            else
+                            {
+                                //Console.WriteLine("\nCycle iteration during: " + cycleIteration + " | X value: " + x);
+                            }
+                            
+                            if (queue.TryDequeue(out int dequeueValue))
+                            {
+                                x += dequeueValue;
+                            }
+
+                            //Console.WriteLine("\nCycle iteration end: " + cycleIteration + " | X value: " + x);                            
+                            cycleIteration++;
+
+                        }
+                    }
+                }
+            }
+            return sum.ToString();
         }
 
     }
