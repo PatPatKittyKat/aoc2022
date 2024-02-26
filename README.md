@@ -91,3 +91,5 @@ For Part 1, the answer is determined by the number of spots visited at least onc
 I ended up needing to put in many overtime hours at work for multiple urgent client deadlines. Could not really afford to continue AoC anymore when work ends at 3 AM at times. Got really burned out, but I plan on picking this back up again next year. If you are reading this, thanks for following along up til now :)
 
 02/25/2024 (Picking back up): Figured this could be accomplished easily with a queue to hold values for V. The problem is essentially just a loop with delayed operations, while tracking the iterator.
+
+Part 2 requires keeping closer track of the current cycle alongside the X value at each point of the iterations. Used a `List<bool>` of length 40 to keep track of each row, added to a result string and then cleared out when cycle iteration reached a multiple of 40.

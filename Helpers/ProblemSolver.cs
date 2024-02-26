@@ -912,13 +912,7 @@ namespace aoc2022
         {
             int x = 1;
             int sum = 0;
-            // int test = 20;
-            // int test1= 60;
-            // int test2= 100;
-
-            // int val = (test2+20)%40;
-
-            //Console.WriteLine("\n\n Test: " + val + "\n\n");
+            string part2Result = string.Empty;
 
             using (FileStream fs = File.OpenRead(filePath))
             {
@@ -933,49 +927,122 @@ namespace aoc2022
                         string? line;
                         int cycleIteration = 1;
                         Queue<int> queue = new Queue<int>();
-
+                        List<bool> pixelList = new List<bool>();
+                        
                         while ((line = reader.ReadLine()) != null)
                         {
                             string[] splitInstruction = line.Split(' ');
                             string op = line.Split(' ')[0];
 
-                            //Console.WriteLine("\nCycle iteration begin: " + cycleIteration + " | X value: " + x);
-
-                            if ((cycleIteration + 20) % 40 == 0)
+                            if (part == 1)
                             {
-                                sum += x*cycleIteration;
-                            }
-
-                            if (op == "addx")
-                            {
-                                int instructionValue = Convert.ToInt32(splitInstruction[1]);
-                                queue.Enqueue(instructionValue);
-                                //Console.WriteLine("\nCycle iteration during: " + cycleIteration + " | X value: " + x);
-                                cycleIteration++;
+                                //Console.WriteLine("\nCycle iteration begin: " + cycleIteration + " | X value: " + x);
 
                                 if ((cycleIteration + 20) % 40 == 0)
                                 {
                                     sum += x*cycleIteration;
                                 }
+
+                                if (op == "addx")
+                                {
+                                    int instructionValue = Convert.ToInt32(splitInstruction[1]);
+                                    queue.Enqueue(instructionValue);
+                                    //Console.WriteLine("\nCycle iteration during: " + cycleIteration + " | X value: " + x);
+                                    cycleIteration++;
+
+                                    if ((cycleIteration + 20) % 40 == 0)
+                                    {
+                                        sum += x*cycleIteration;
+                                    }
+                                }
+                                else
+                                {
+                                    //Console.WriteLine("\nCycle iteration during: " + cycleIteration + " | X value: " + x);
+                                }
+                                
+                                if (queue.TryDequeue(out int dequeueValue))
+                                {
+                                    x += dequeueValue;
+                                }
+
+                                //Console.WriteLine("\nCycle iteration end: " + cycleIteration + " | X value: " + x);                            
+                                cycleIteration++;
                             }
                             else
                             {
-                                //Console.WriteLine("\nCycle iteration during: " + cycleIteration + " | X value: " + x);
-                            }
-                            
-                            if (queue.TryDequeue(out int dequeueValue))
-                            {
-                                x += dequeueValue;
-                            }
+                                // For part 2, row 3, 5, and 6 misaligned. Otherwise solid result.
 
-                            //Console.WriteLine("\nCycle iteration end: " + cycleIteration + " | X value: " + x);                            
-                            cycleIteration++;
+                                if (x >= cycleIteration-2 && x <= cycleIteration )
+                                {
+                                    pixelList.Add(true);
+                                }
+                                else
+                                {
+                                    pixelList.Add(false);
+                                }
 
+                                if (cycleIteration % 40 == 0)
+                                {
+                                    string row = string.Empty;
+                                    foreach (bool p in pixelList)
+                                    {
+                                        char c = p ? '#' : '.';
+                                        row += c;
+                                    }
+                                    part2Result += row + '\n';
+                                    pixelList = new List<bool>();
+                                    cycleIteration = 0;
+                                }
+
+                                if (op == "addx")
+                                {
+                                    int instructionValue = Convert.ToInt32(splitInstruction[1]);
+                                    queue.Enqueue(instructionValue);
+                                    cycleIteration++;
+
+                                    if (cycleIteration % 40 == 0)
+                                    {
+                                        if (x >= cycleIteration-2 && x <= cycleIteration )
+                                        {
+                                            pixelList.Add(true);
+                                        }
+                                        else
+                                        {
+                                            pixelList.Add(false);
+                                        }
+
+                                        string row = string.Empty;
+                                        foreach (bool p in pixelList)
+                                        {
+                                            char c = p ? '#' : '.';
+                                            row += c;
+                                        }
+                                        part2Result += row + '\n';
+                                        pixelList = new List<bool>();
+                                        cycleIteration = 0;
+                                    }
+
+                                    if (x >= cycleIteration-2 && x <= cycleIteration )
+                                    {
+                                        pixelList.Add(true);
+                                    }
+                                    else
+                                    {
+                                        pixelList.Add(false);
+                                    }
+                                }
+                                if (queue.TryDequeue(out int dequeueValue))
+                                {
+                                    x += dequeueValue;
+                                }
+
+                                cycleIteration++;
+                            }
                         }
                     }
                 }
             }
-            return sum.ToString();
+            return (part == 1) ? sum.ToString() : part2Result;
         }
 
     }

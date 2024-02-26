@@ -430,7 +430,7 @@ namespace aoc2022
         public static string CathodeRayTube(int part = 1)
         {
             // Filestream setup
-            string filePath = Environment.CurrentDirectory + @"\inputs\problem10.txt";
+            string filePath = Environment.CurrentDirectory + @"\inputs\problem10test.txt";
 
             if (part == 1)
             {
@@ -438,8 +438,7 @@ namespace aoc2022
             }
 
             // part 2
-            //return ProblemSolver.CathodeRayTube(filePath, 2);
-            return "";
+            return ProblemSolver.CathodeRayTube(filePath, 2);
         }
     }
 }
